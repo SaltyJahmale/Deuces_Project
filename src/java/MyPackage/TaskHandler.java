@@ -3,9 +3,9 @@ import java.io.File;
 import java.net.URI;
 
 
-public class TaskHandler {
+public class TaskHandler2 {
 
-private URI youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA&list=RDS_xH7noaqTA");
+	private URI youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA&list=RDS_xH7noaqTA");
 	private String searchQuery = "";
 	private URI googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
 	private String localMainMusicPath = "C:\\Users\\sharelison\\Music\\";
@@ -25,8 +25,7 @@ private URI youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA
 	}
 	
 	public void searchGoogle(String query) {
-		searchQuery = query;
-		updateGoogleUrl();
+		updateGoogleUrl(query);
 		//Desktop d = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		Desktop d = Desktop.getDesktop();
 		if (d != null && d.isSupported(Desktop.Action.BROWSE)) {
@@ -127,7 +126,9 @@ private URI youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA
 		this.youtubeUrl = URI.create(url);
 	}
 	
-	private void updateGoogleUrl() {
+	private void updateGoogleUrl(String query) {
+		query = query.replace(" ", "+");
+		searchQuery = query;
 		googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
 	}
 	
