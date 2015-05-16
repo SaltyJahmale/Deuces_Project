@@ -2,23 +2,33 @@ import java.awt.Desktop;
 import java.io.File;
 import java.net.URI;
 
+public class TaskHandler {
 
-public class TaskHandler2 {
-
-	private URI youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA&list=RDS_xH7noaqTA");
-	private String searchQuery = "";
-	private URI googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
-	private String localMainMusicPath = "C:\\Users\\sharelison\\Music\\";
-	private String localMainVideoPath = "C:\\Users\\sharelison\\Videos\\";
-	private String song = "Dreams.mp3";	 
+	private URI youtubeUrl;
+	private String searchQuery;
+	private URI googleUrl;
+	private String localMainMusicPath;
+	private String localMainVideoPath;
+	private FileFinder filefinder = null;
+	private String song;	 
+	
+	public TaskHandler() {
+		this.filefinder = new FileFinder();
+		this.searchQuery = "";
+		this.youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA&list=RDS_xH7noaqTA#t=5");
+		this.googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
+		this.localMainMusicPath = "C:\\Users\\sharelison\\Music\\";
+		this.localMainVideoPath = "C:\\Users\\sharelison\\Videos\\";
+		this.song = "Dreams.mp3";	
+	}
 	
 	public void playYoutube() {
-		//Desktop d = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		Desktop d = Desktop.getDesktop();
 		if (d != null && d.isSupported(Desktop.Action.BROWSE)) {
 			try {
 				d.browse(youtubeUrl);
 			} catch(Exception e) {
+				e.printStackTrace();
 				System.out.println("Exception at playYoutube");
 			}
 		}
@@ -26,7 +36,6 @@ public class TaskHandler2 {
 	
 	public void searchGoogle(String query) {
 		updateGoogleUrl(query);
-		//Desktop d = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		Desktop d = Desktop.getDesktop();
 		if (d != null && d.isSupported(Desktop.Action.BROWSE)) {
 			try {
@@ -37,10 +46,10 @@ public class TaskHandler2 {
 		}
 	}
 	
-	//set to only play mp3 files
 	public void playSong(String songName) {
-		if(!isMp3(songName)) {
-			song = songName + ".mp3";
+		song = songName;
+		if(!filefinder.hasExtension(songName)) {
+			song = filefinder.findFile(songName, localMainMusicPath);
 		}
 		
 		Desktop d = Desktop.getDesktop();
@@ -54,16 +63,14 @@ public class TaskHandler2 {
 		}
 	}
 	
-	//set to only play mp3 files
+	//Catch IllegalArgumentException is file not found 
 	public void playSongAtPath(String songPath) {	
-	     File file;
-		 try {
-			if(isMp3(songPath)) {
-		        file = new File(songPath);
-			} else {
-				file = new File(songPath + ".mp3");
-			}
-			
+	     File file = new File(songPath);
+		 try {			 
+	     	if(!filefinder.hasExtension(songPath)) {
+	     		file = prepareFile(songPath);
+	     	}	
+	     	
 			Desktop d = Desktop.getDesktop();
 			if (d != null && d.isSupported(Desktop.Action.OPEN)) {
 				d.open(file);
@@ -76,13 +83,9 @@ public class TaskHandler2 {
 		
 	}
 	
-	public void playVideo(String video) {	
-		
-		/* videonames without given extension(videoname instead of videoname.mp4) can only be played if it's an mp4 file
-		 * otherwise exception raised.
-		 */		
-		if(!hasExtension(video)){
-			video = video + ".mp4";
+	public void playVideo(String video) {			
+		if(!filefinder.hasExtension(video)){
+			video = filefinder.findFile(video, localMainVideoPath);
 		} 
 		
 		Desktop d = Desktop.getDesktop();
@@ -95,31 +98,22 @@ public class TaskHandler2 {
 			}
 		}
 	}
+	
+	//Catch IllegalArgumentException is file not found 
 	public void playVideoAtPath(String videoUrl) {
-			/* videonames without given extension(videoname instead of videoname.mp4) can only be played if it's an mp4 file
-			 * otherwise exception raised.
-			 */		
-			if(!hasExtension(videoUrl)){
-				videoUrl = videoUrl + ".mp4";
+		    File file = new File(videoUrl);
+			if(!filefinder.hasExtension(videoUrl)){
+				file = prepareFile(videoUrl);
 			} 
 			
 			Desktop d = Desktop.getDesktop();
 			if(d != null && d.isSupported(Desktop.Action.OPEN)) {
 				try {
-					File file = new File(videoUrl);
 					d.open(file);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
-	}
-	
-	private boolean isMp3(String songName) {
-		if (songName.substring(songName.length() - 4).equals(".mp3")) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	public void setYoutubeUrl(String url) {
@@ -140,13 +134,49 @@ public class TaskHandler2 {
 		localMainVideoPath = path;
 	}
 	
-	private boolean hasExtension(String filename) {
-		if(filename.substring(filename.length() - 4, filename.length() - 3).equals(".")) {
-			return true;
-		} else {
-			return false;
-		}
+	private File prepareFile(String absolutePath) {
+		absolutePath = absolutePath.replace("\\", "/");
+ 		int lastCharOfPath = absolutePath.lastIndexOf("/");
+ 		String filename = absolutePath.substring(lastCharOfPath + 1);
+ 		String path = absolutePath.substring(0, lastCharOfPath + 1);
+ 		File file = new File(path + filefinder.findFile(filename, path));
+		return file;
 	}
 	
+	private class FileFinder {
+		
+		public boolean isMp3(String songName) {
+			if (songName.substring(songName.length() - 4).equals(".mp3")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		public boolean hasExtension(String filename) {
+			if(filename.substring(filename.length() - 4, filename.length() - 3).equals(".")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		public String findFile(String nameFile, String path) {
+			File dir = new File(path);
+			File[] dirFiles = dir.listFiles();
+			for (File file : dirFiles) {
+				try {
+				String filename = file.getName();
+				String baseName = filename.substring(0, filename.length() - 4);
+				if(baseName.equals(nameFile)) {
+					return filename;
+				}
+				} catch(IndexOutOfBoundsException e) {
+					continue;
+				}
+			}
+			return nameFile;
+		}
+	}
 }
 
