@@ -120,18 +120,30 @@ public class TaskHandler {
 		this.youtubeUrl = URI.create(url);
 	}
 	
-	private void updateGoogleUrl(String query) {
-		query = query.replace(" ", "+");
-		searchQuery = query;
-		googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
-	}
-	
 	public void setMusicMainPath(String path) {
 		localMainMusicPath = path;
 	}
 	
 	public void setVideoMainPath(String path) {
 		localMainVideoPath = path;
+	}
+	
+	public String getYoutubeUrl() {
+		return this.youtubeUrl.toString();
+	}
+	
+	public String getMusicMainPath() {
+		return localMainMusicPath;
+	}
+	
+	public String getVideoMainPath() {
+		return localMainVideoPath;
+	}
+	
+	private void updateGoogleUrl(String query) {
+		query = query.replace(" ", "+");
+		searchQuery = query;
+		googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
 	}
 	
 	private File prepareFile(String absolutePath) {
