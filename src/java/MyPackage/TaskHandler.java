@@ -22,6 +22,16 @@ public class TaskHandler {
 		this.song = "Dreams.mp3";	
 	}
 	
+	public TaskHandler(String mainMusicPath, String mainVideoPath) {
+		this.filefinder = new FileFinder();
+		this.searchQuery = "";
+		this.youtubeUrl = URI.create("https://www.youtube.com/watch?v=S_xH7noaqTA&list=RDS_xH7noaqTA#t=5");
+		this.googleUrl = URI.create("https://www.google.nl/search?q=" + searchQuery + "&oq=" + searchQuery);
+		this.localMainMusicPath = mainMusicPath;
+		this.localMainVideoPath = mainVideoPath;
+		this.song = "Dreams.mp3";	
+	}
+	
 	public void playYoutube() {
 		Desktop d = Desktop.getDesktop();
 		if (d != null && d.isSupported(Desktop.Action.BROWSE)) {
