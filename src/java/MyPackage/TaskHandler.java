@@ -73,26 +73,6 @@ public class TaskHandler {
 		}
 	}
 	
-	//Catch IllegalArgumentException is file not found 
-	public void playSongAtPath(String songPath) {	
-	     File file = new File(songPath);
-		 try {			 
-	     	if(!filefinder.hasExtension(songPath)) {
-	     		file = prepareFile(songPath);
-	     	}	
-	     	
-			Desktop d = Desktop.getDesktop();
-			if (d != null && d.isSupported(Desktop.Action.OPEN)) {
-				d.open(file);
-			}
-
-		 } catch(Exception e) {
-	        System.out.println("Exception at playSongAtPath");
-			e.printStackTrace();
-		 }
-		
-	}
-	
 	public void playVideo(String video) {			
 		if(!filefinder.hasExtension(video)){
 			video = filefinder.findFile(video, localMainVideoPath);
@@ -109,21 +89,24 @@ public class TaskHandler {
 		}
 	}
 	
-	//Catch IllegalArgumentException is file not found 
-	public void playVideoAtPath(String videoUrl) {
-		    File file = new File(videoUrl);
-			if(!filefinder.hasExtension(videoUrl)){
-				file = prepareFile(videoUrl);
-			} 
-			
-			Desktop d = Desktop.getDesktop();
-			if(d != null && d.isSupported(Desktop.Action.OPEN)) {
-				try {
-					d.open(file);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+	/*
+	 * Can open any local file.
+	 * 
+	 */
+	public void openFileAtPath(String filepath) {
+	    File file = new File(filepath);
+		if(!filefinder.hasExtension(filepath)){
+			file = prepareFile(filepath);
+		} 
+		
+		Desktop d = Desktop.getDesktop();
+		if(d != null && d.isSupported(Desktop.Action.OPEN)) {
+			try {
+				d.open(file);
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+		}		
 	}
 	
 	public void setYoutubeUrl(String url) {
