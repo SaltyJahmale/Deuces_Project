@@ -173,7 +173,7 @@ public class TaskHandler {
 				try {
 				String filename = file.getName();
 				String baseName = filename.substring(0, filename.length() - 4);
-				if(baseName.equals(nameFile)) {
+				if(baseName.equalsIgnoreCase(nameFile)) {
 					return filename;
 				}
 				} catch(IndexOutOfBoundsException e) {
