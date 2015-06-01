@@ -18,7 +18,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="logout.jsp"> Logout </a>
+          <a class="navbar-brand" href="index.jsp"> Deuces </a>
         </div>
         <div>
           <ul class="nav navbar-nav">
@@ -42,7 +42,7 @@
             <div class="col-sm-6 col-md-4 col-md-offset-4">
                 <h1 class="text-center login-title"> Enter information here </h1>
                   <div class="account-wall">
-                      <form class="form-signin" method="post" action="login.jsp">
+                      <form class="form-signin" method="post" action="register_gebruiker.jsp">
                         
                         <label for="fnameInput" > Voornaam </label>
                         <input type="text" class="form-control" name="fname" value="" placeholder="Name" required autofocus>

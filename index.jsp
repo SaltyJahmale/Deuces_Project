@@ -19,7 +19,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="logout.jsp"> Logout </a>
+          <a class="navbar-brand" href="index.jsp"> Deuces </a>
         </div>
         <div>
           <ul class="nav navbar-nav">
