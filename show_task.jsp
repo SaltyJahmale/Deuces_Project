@@ -96,10 +96,10 @@
                                 <%= resultset.getString(4) %> 
                             </td>
                             <td>
-                                <%= resultset.getString(5) %> 
+                                <%= resultset.getString(3) %> 
                             </td>
                             <td>
-                                <%= resultset.getString(3) %> 
+                                <%= resultset.getString(5) %> 
                             </td>
                             <td>
                                 <input type="button" name="delete" value="Delete" onclick="deleteRecord(<%=resultset.getString(1)%>);" >

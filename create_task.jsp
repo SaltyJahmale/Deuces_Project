@@ -63,7 +63,11 @@
                         <label for="datumInput" > Datum </label>
                         <input type="text" class="form-control" name="datum" id="datumInput" value="" required> 
                         <br>
-                        
+                    
+                        <label for="omschrijvingInput"> Omschrijving </label>
+                        <input type="text" class="form-control" name="omschrijving" id="omschrijvingInput" value="" required>
+                        <br>
+                          
                         <label for="omschrijvingInput"> Categorie </label>
                         <select class="form-control" data-style="btn-primary" name="categorie">
                           <option class="categorie"> Apparaat </option>
@@ -72,10 +76,6 @@
                           <option class="categorie"> Prive </option>
                           <option class="categorie"> Sociaal </option>
                         </select>
-                        <br>
-                        
-                        <label for="omschrijvingInput"> Omschrijving </label>
-                        <input type="text" class="form-control" name="omschrijving" id="omschrijvingInput" value="" required>
                         <br>
                           <button class="btn btn-lg btn-primary btn-block" type="submit" value=""> Toevoegen </button>
                           <a href="#" class="pull-right need-help"></a>
