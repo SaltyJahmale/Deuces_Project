@@ -60,10 +60,6 @@
                         <input type="text" class="form-control" name="taak" id="taakInput" value="" required autofocus>
                         <br>
                         
-                        <label for="omschrijvingInput"> Omschrijving </label>
-                        <input type="text" class="form-control" name="omschrijving" id="omschrijvingInput" value="" required>
-                        <br>
-                        
                         <label for="datumInput" > Datum </label>
                         <input type="text" class="form-control" name="datum" id="datumInput" value="" required> 
                         <br>
@@ -76,8 +72,11 @@
                           <option class="categorie"> Prive </option>
                           <option class="categorie"> Sociaal </option>
                         </select>
+                        <br>
                         
-                          <br>
+                        <label for="omschrijvingInput"> Omschrijving </label>
+                        <input type="text" class="form-control" name="omschrijving" id="omschrijvingInput" value="" required>
+                        <br>
                           <button class="btn btn-lg btn-primary btn-block" type="submit" value=""> Toevoegen </button>
                           <a href="#" class="pull-right need-help"></a>
                           <a href="show_task.jsp" class="pull-light new-account"> Naar taken </a>

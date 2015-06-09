@@ -72,33 +72,34 @@
             }
             
             ResultSet resultset = ps.executeQuery("SELECT * FROM nieuwe_taak WHERE gebruiker_id = '" + getUserKey +"' ");
-
+            
+          
         %>
       <form method="post" name="form">
         <table class="table table-bordered">
             <tr>
                 <th>Taak</th>
-                <th>Omschrijving</th>
                 <th>Datum</th>
+                <th>Omschrijving</th>
                 <th>Categorie</th>
                 
             </tr>
             
             <%           
-                while(resultset.next()){ 
+                while(resultset.next()) { 
                     %>
                         <tr>
                             <td>
-                                <%= resultset.getString("taak_naam") %>  
+                                <%= resultset.getString(6) %>  
                             </td>
                             <td>
-                                <%= resultset.getString("omschrijving") %> 
+                                <%= resultset.getString(4) %> 
                             </td>
                             <td>
-                                <%= resultset.getString("datum") %> 
+                                <%= resultset.getString(5) %> 
                             </td>
                             <td>
-                                <%= resultset.getString("categorie") %> 
+                                <%= resultset.getString(3) %> 
                             </td>
                             <td>
                                 <input type="button" name="delete" value="Delete" onclick="deleteRecord(<%=resultset.getString(1)%>);" >
