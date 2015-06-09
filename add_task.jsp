@@ -24,7 +24,7 @@
         getUserKey = rs.getInt(1);
     }
 
-    int i = ps.executeUpdate("insert into nieuwe_taak(gebruiker_id, taak_naam, omschrijving, datum, categorie) values ('" + getUserKey + "', '" + invoer_omsch + "','" + invoer_datum + "','" + invoer_categorie + "','" + invoer_taak + "')");
+    int i = ps.executeUpdate("insert into nieuwe_taak(gebruiker_id, taak_naam, omschrijving, datum, categorie) values ('" + getUserKey + "','" + invoer_taak + "', '" + invoer_omsch + "','" + invoer_datum + "','" + invoer_categorie + "')");
     if (i > 0) {
         response.sendRedirect("show_task.jsp");
     } else {
